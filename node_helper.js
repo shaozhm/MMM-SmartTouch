@@ -5,7 +5,12 @@
  * https://smartbuilds.io
  * MIT Licensed.
  */
-const NodeHelper = require("node_helper")
+const Blynk = require('blynk-library');
+const NodeHelper = require("node_helper");
+const piToken = 'BO9Ej28AzpoEsaCs0WXiS3mqSO2KE8mZ';
+const globalSwitchButtonPin = 1;
+const blynkServer = 'sonos.local';
+const blynkServerPort = 8442;
 
 module.exports = NodeHelper.create({
   start: function () {
@@ -21,6 +26,18 @@ module.exports = NodeHelper.create({
         console.log("Smart Touch module has started")
         this.sendSocketNotification("SHUTIT", payload);
       }
+    }
+
+    if (notification === "BLYNKSEND") {
+      const blynk = new Blynk.Blynk(piToken, options = {
+        connector : new Blynk.TcpClient( options = { addr: blynkServer, port: blynkServerPort })
+      });
+      blynk.on('connect', () => {
+        const bridge = new blynk.WidgetBridge(99);
+        bridge.setAuthToken(piToken);
+        bridge.virtualWrite(globalSwitchButtonPin, 1);
+        blynk.disconnect(false);
+      });
     }
 
     if (notification === "SHUTDOWN") {

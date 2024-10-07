@@ -1,0 +1,11 @@
+{
+  "name": "MMM-SmartTouch",
+  "version": "1.0.0",
+  "main": "bin/index.js",
+  "bin": {
+    "blynk-send": "bin/index.js"
+  },
+  "dependencies": {
+    "blynk-library": "0.5.4"
+  }
+}

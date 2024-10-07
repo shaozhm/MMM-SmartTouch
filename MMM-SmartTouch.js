@@ -48,7 +48,9 @@ Module.register("MMM-SmartTouch", {
     standByButtonDiv.className = "st-container__standby-button";
 
     standByButtonDiv.appendChild(document.createElement("span"))
-    standByButtonDiv.addEventListener("click", () => this.toggleStandby());
+    standByButtonDiv.addEventListener("click",
+      () => this.sendSocketNotification("BLYNKSEND", {}));
+    // standByButtonDiv.addEventListener("click", () => this.toggleStandby());
 
     return standByButtonDiv;
   },
@@ -136,11 +138,11 @@ Module.register("MMM-SmartTouch", {
     const standByButton = this.createStandByButtonDiv();
     container.appendChild(standByButton);
 
-    const menuToggleButton = this.createMenuToggleButtonDiv();
-    container.appendChild(menuToggleButton);
+    // const menuToggleButton = this.createMenuToggleButtonDiv();
+    // container.appendChild(menuToggleButton);
 
-    const mainMenu = this.createMainMenuDiv();
-    document.body.appendChild(mainMenu);
+    // const mainMenu = this.createMainMenuDiv();
+    // document.body.appendChild(mainMenu);
 
     return container;
   },
